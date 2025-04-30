@@ -7,6 +7,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Rota raiz de teste
+app.get('/', (req, res) => {
+  res.send('API do Controle de TI está funcionando!');
+});
+
+// Rotas da aplicação
 app.use('/api/itens', require('./routes/itens'));
 app.use('/api/usuarios', require('./routes/usuarios'));
 

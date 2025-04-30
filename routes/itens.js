@@ -16,9 +16,11 @@ const ItemSchema = new mongoose.Schema({
 
 const Item = mongoose.model('Item', ItemSchema);
 
-router.get('/', async (req, res) => {
-  const itens = await Item.find();
-  res.json(itens);
+router.get('/', (req, res) => {
+  res.json([
+    { nome: "Notebook Dell", status: "Em uso" },
+    { nome: "Mouse Logitech", status: "Disponível" }
+  ]);
 });
 
 router.post('/', async (req, res) => {
