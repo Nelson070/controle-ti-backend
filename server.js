@@ -6,14 +6,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Rotas
 app.use('/api/itens', require('./routes/itens'));
 app.use('/api/usuarios', require('./routes/usuarios'));
 
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log('MongoDB conectado');
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
-}).catch(err => console.error('Erro MongoDB:', err));
+// Conectar ao MongoDB usando variável de ambiente
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+        console.log("MongoDB connected");
+        app.listen(process.env.PORT || 3000, () => console.log("Server running"));
+    })
+    .catch(err => console.error(err));
