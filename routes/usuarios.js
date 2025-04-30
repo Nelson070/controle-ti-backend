@@ -1,23 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 
-const UsuarioSchema = new mongoose.Schema({
-  nome: String,
-  setor: String
-});
+// Simulando dados em memória (troque por MongoDB depois)
+let usuarios = [
+  { _id: "1", nome: "João", setor: "TI" },
+  { _id: "2", nome: "Maria", setor: "RH" }
+];
 
-const Usuario = mongoose.model('Usuario', UsuarioSchema);
-
-router.get('/', async (req, res) => {
-  const usuarios = await Usuario.find();
+// GET - listar usuários
+router.get('/', (req, res) => {
   res.json(usuarios);
 });
 
-router.post('/', async (req, res) => {
-  const novoUsuario = new Usuario(req.body);
-  await novoUsuario.save();
-  res.json(novoUsuario);
+// POST - cadastrar novo usuário
+router.post('/', (req, res) => {
+  const novoUsuario = { _id: Date.now().toString(), ...req.body };
+  usuarios.push(novoUsuario);
+  res.status(201).json(novoUsuario);
 });
 
 module.exports = router;
